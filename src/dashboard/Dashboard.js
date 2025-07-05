@@ -66,7 +66,7 @@ const Dashboard = () => {
             </h2>
             <div className="flex items-center justify-between bg-gold-color text-black p-2 rounded">
               <span className="text-sm overflow-x-auto">
-                {frontend}/register?referral_id={user_profile?.Login_Id ==="BT123456" ? "BOT123456" : user_profile?.Login_Id}
+                {frontend}/register?referral_id={user_profile?.Login_Id}
               </span>
               <button
                 onClick={() => functionTOCopy(frontend + "/register?referral_id=" + user_profile?.Login_Id)}
