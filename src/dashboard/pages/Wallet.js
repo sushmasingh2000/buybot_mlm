@@ -1,101 +1,52 @@
-
-import { Button, Checkbox, CircularProgress, MenuItem, TextField } from "@mui/material";
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
-import { useQuery } from "react-query";
-import { apiConnectorGet, apiConnectorPost } from "../../utils/APIConnector";
-import { endpoint } from "../../utils/APIRoutes";
+import React, { useState } from 'react';
+import qr from "../../assets/qr.png";
+import { apiConnectorGet } from '../../utils/APIConnector';
+import { endpoint } from '../../utils/APIRoutes';
+import { useQuery } from 'react-query';
 
 const Wallet = () => {
-  const [loding, setLoding] = useState(false);
- const [data, setData] = useState("");
-  const initialValues = {
-    pack_id: "",
-    user_id: ""
-  }
 
-  const fk = useFormik({
-    initialValues: initialValues,
-    enableReinitialize: true,
-    onSubmit: () => {
-      const reqbody = {
-        pack_id: 1,
-        user_id: fk.values.user_id
-      };
-      WalletFn(reqbody)
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText(user_profile?.wallet_Address)
+      .then(() => {
+        alert('Wallet Address copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err);
+      });
+  };
+    const { data:profile } = useQuery(
+    ["get_profile"],
+    () => apiConnectorGet(endpoint?.profile_api),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
     }
-  });
-  async function WalletFn(reqbody) {
-    // setLoding(true)
-    try {
-      const res = await apiConnectorPost(
-        endpoint?.wallet_address, reqbody
-      );
-      toast(res?.data?.message);
-      fk.handleReset();
-    } catch (e) {
-      console.log(e);
-    }
-    setLoding(false);
-  }
-
-      const Customerfunction = async () => {
-      const reqbody = {
-        user_id: fk.values.user_id,
-      };
-      try {
-        const res = await apiConnectorPost(endpoint?.customer_api, reqbody);
-        setData(res?.data?.result?.[0]);
-      } catch (e) {
-        console.log("something went wrong");
-      }
-    };
-    useEffect(() => {
-      Customerfunction();
-    }, [fk.values.user_id]);
-  if (loding)
-    return (
-      <div className="w-[100%] h-[100%] flex justify-center items-center">
-        <CircularProgress />
-      </div>
-    );
+  );
+  const user_profile = profile?.data?.result || 0 ;
   return (
-    <div className="!flex justify-center items-center w-full">
-      <div className="p-5  lg:w-1/2 md:w-3/4 w-full bg-white !bg-opacity-30 rounded-lg">
-        <p className="!text-center font-bold !py-4 !pb-10 text-lg">
-          Add Wallet
-        </p>
-        <div className="grid grid-cols-1  gap-[6%] gap-y-4">
-          <div>
-            <p>UserID</p>
-            <TextField
-              fullWidth
-              id="user_id"
-              name="user_id"
-              value={fk.values.user_id}
-              onChange={fk.handleChange}
-         />
-              <span className="text-red-800 !px-2">{data?.jnr_name}</span>
-
+    <div className="p-2 min-h-screen bg-gray-900">
+      <div className="bg-gray-800 rounded-lg shadow-lg p-6 text-white border border-gray-700 mb-6 flex flex-col  justify-between items-start md:items-center gap-6">
+        <div className="bg-gray-700 p-4 rounded-md flex flex-col items-center justify-center ">
+          <img src={"qr"} alt='' className=''/>
+        </div>
+          <div className="flex p-1 bg-gray-700 items-center">
+            <p className='px-2'>  Wallet Address <span className="text-red-500">*</span></p>
+            <input
+              type="text"
+              id="walletAddressDisplay"
+              value={user_profile?.wallet_Address}
+              readOnly
+              className="flex-grow bg-gray-600 text-white border border-gray-500 rounded-l-md py-2 px-3 text-sm cursor-text focus:outline-none"
+            />
+            <button
+              onClick={handleCopyAddress}
+              className="bg-green-500 hover:bg-green-700 px-4 py-3 rounded-r-md text-white text-sm"
+            >
+              Copy
+            </button>
           </div>
-        </div>
-        <div className="flex justify-end gap-3 mt-5">
-          <Button
-            onClick={() => fk.handleReset()}
-            variant="contained"
-            className="!bg-[#E74C3C]"
-          >
-            Clear
-          </Button>
-          <Button
-            onClick={() => fk.handleSubmit()}
-            variant="contained"
-            className="!bg-[#07BC0C]"
-          >
-            Submit
-          </Button>
-        </div>
       </div>
     </div>
   );

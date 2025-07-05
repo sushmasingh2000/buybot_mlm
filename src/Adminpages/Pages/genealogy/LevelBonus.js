@@ -24,7 +24,7 @@ const Level = () => {
   const { data, isLoading } = useQuery(
     ['get_level_admin', fk.values.search, fk.values.start_date, fk.values.end_date, page],
     () =>
-      apiConnectorPost(endpoint?.roi_income_api, {
+      apiConnectorPost(endpoint?.admin_roi_income_api, {
         income_Type: 'Level Income',
         search: fk.values.search,
         start_date: fk.values.start_date,

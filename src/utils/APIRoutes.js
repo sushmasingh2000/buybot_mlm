@@ -9,6 +9,7 @@ export const endpoint = {
   dashboard_data: `${domain}/api/v1/user-dashboard`,
   profile_api: `${domain}/api/v1/user-details`,
   roi_income_api: `${domain}/api/v1/user-income-report`,
+  admin_roi_income_api: `${domain}/api/v1/admin-income-report`,
   admin_dashboard: `${domain}/api/v1/admin-dashboard`,
   admin_fund_memeber: `${domain}/api/v1/admin-fund-member-topup`,
   topup_report: `${domain}/api/v1/topup-report`,

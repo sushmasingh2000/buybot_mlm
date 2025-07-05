@@ -25,12 +25,7 @@ const FundTransfer = () => {
 
   // Mock data for the table
   const mockTableData = [
-    { id: 1, date: '02-Jul-2025', userId: 'BKS40118', userName: 'Sony Kumari', fromWallet: 'Topup Wallet', toWallet: '10.00 $' },
-    { id: 2, date: '02-Jul-2025', userId: 'BKS98376', userName: 'Gaurav Tyagi', fromWallet: 'Topup Wallet', toWallet: '10.00 $' },
-    { id: 3, date: '02-Jul-2025', userId: 'BKS15979', userName: 'SARITA SHARMA', fromWallet: 'Topup Wallet', toWallet: '10.00 $' },
-    { id: 4, date: '02-Jul-2025', userId: 'BKS17512', userName: 'Shubham', fromWallet: 'Topup Wallet', toWallet: '10.00 $' },
-    { id: 5, date: '02-Jul-2025', userId: 'BKS42439', userName: 'Ningmel Kamel', fromWallet: 'Topup Wallet', toWallet: '25.00 $' },
-  ];
+];
 
   // Filtered and paginated mock data
   const filteredData = mockTableData.filter(item =>

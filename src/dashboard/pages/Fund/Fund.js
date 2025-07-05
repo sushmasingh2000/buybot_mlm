@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { apiConnectorPost } from '../../../utils/APIConnector';
+import { apiConnectorGet, apiConnectorPost } from '../../../utils/APIConnector';
 import { endpoint } from '../../../utils/APIRoutes';
 import CustomTable from '../../../Shared/CustomTable';
 import CustomToPagination from '../../../Shared/Pagination';
@@ -15,7 +15,16 @@ const Fund = () => {
   const [transactionId, setTransactionId] = useState('');
   const [receiptFile, setReceiptFile] = useState(null); // For file input
   const [payMode, setPayMode] = useState(''); // Could be a text input or dropdown
-  const [walletAddress, setWalletAddress] = useState('0xE4AA30dA0386f5f7fA62A5761k'); // Example address
+    const { data:profile } = useQuery(
+    ["get_profile"],
+    () => apiConnectorGet(endpoint?.profile_api),
+    {
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const user_profile = profile?.data?.result || 0 ;
 
   const initialValues = {
     income_Type: '',
@@ -87,8 +96,7 @@ const Fund = () => {
       amount,
       transactionId,
       receiptFile: receiptFile ? receiptFile.name : 'No file',
-      payMode,
-      walletAddress,
+      payMode
     });
 
     alert('Fund request submitted successfully!');
@@ -100,7 +108,7 @@ const Fund = () => {
   };
 
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText(walletAddress)
+    navigator.clipboard.writeText(user_profile?.wallet_Address)
       .then(() => {
         alert('Wallet Address copied to clipboard!');
       })
@@ -154,23 +162,27 @@ const Fund = () => {
                 type="file"
                 id="receipt"
                 onChange={(e) => setReceiptFile(e.target.files[0])}
-                className="hidden" // Hide the default file input
+                className="hidden"
               />
             </label>
           </div>
 
           <div className="flex flex-col flex-1 min-w-[120px]">
             <label htmlFor="payMode" className="text-sm font-medium text-gray-300 mb-1">
-              Pay Mode
+              Crypto Address 
             </label>
-            <input
-              type="text"
+            <select
               id="payMode"
-              placeholder="Online Tra" // Based on your image, this looks like an input, not a button
               value={payMode}
               onChange={(e) => setPayMode(e.target.value)}
-              className="bg-gray-700 border border-gray-600  py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
-            />
+              className="bg-gray-700 border border-gray-600 py-2 px-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="" disabled>
+                Select Wallet
+              </option>
+              <option value="web20">USDT.BEP20</option>
+              <option value="trx20">USDT.TRC20</option>
+            </select>
           </div>
 
           <button
@@ -190,11 +202,11 @@ const Fund = () => {
             <input
               type="text"
               id="walletAddressDisplay"
-              value={walletAddress}
+              value={user_profile?.wallet_Address}
               readOnly
               className="flex-grow bg-gray-600 text-white border border-gray-500 rounded-l-md py-2 px-3 text-sm cursor-text focus:outline-none"
             />
-         
+
           </div>
         </div>
       </div>

@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/favicon.png";
 import { FaAngleDown, FaAngleRight, FaUserFriends, FaCoins, FaExchangeAlt, FaHeadset, FaMoneyBillWave, FaNetworkWired, FaPowerOff, FaSignOutAlt, FaTachometerAlt, FaTimes, FaUserCog, FaWallet } from "react-icons/fa";
+import { useQuery } from "react-query";
+import { apiConnectorGet } from "../../../utils/APIConnector";
+import { endpoint } from "../../../utils/APIRoutes";
 
 const Sidebar = () => {
     const [activeMenu, setActiveMenu] = useState("Dashboard");
@@ -56,7 +59,7 @@ const Sidebar = () => {
         //     ],
         // },
 
-        // { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
+        { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
         { title: "Withdrawal", icon: <FaExchangeAlt />, path: "/withdrawal" },
         { title: "Profile Settings", icon: <FaUserCog />, path: "/profile" },
         // { title: "Support", icon: <FaHeadset />, path: "/dashboard" },
@@ -67,6 +70,17 @@ const Sidebar = () => {
             },
         },
     ];
+
+     const { data:profile } = useQuery(
+        ["get_profile"],
+        () => apiConnectorGet(endpoint?.profile_api),
+        {
+          refetchOnMount: false,
+          refetchOnReconnect: false,
+          refetchOnWindowFocus: false,
+        }
+      );
+      const user_profile = profile?.data?.result || 0 ;
 
     return (
         <>
@@ -79,7 +93,7 @@ const Sidebar = () => {
                     <h1 className="text-xl font-semibold">Dashboard</h1>
                     <div className="flex items-center space-x-2 font-medium">
                         <FaUserFriends />
-                        <span>Buy12345</span>
+                        <span>{user_profile?.Associate_Name}</span>
                     </div>
                 </div>
             </div>
