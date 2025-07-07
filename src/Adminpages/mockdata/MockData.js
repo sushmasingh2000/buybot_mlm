@@ -2,6 +2,8 @@ import {
   ColorizeRounded, Compare,
   Games,
   LoginOutlined,
+  MonetizationOn,
+  Money,
   RowingSharp,
   SelfImprovement,
   WheelchairPickupOutlined
@@ -348,6 +350,17 @@ export const all_Data = [
     ),
     subcomponent: [],
   },
+   {
+    id: 11,
+    navLink: "/inr_Paying",
+    navItem: "Fund Request",
+    navIcon: (
+      <span>
+        <Games color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [],
+  },
   // {
   //   id: 111,
   //   navLink: "/inr_Pending",
@@ -564,7 +577,17 @@ export const all_Data = [
     ),
     subcomponent: [],
   },
-
+ {
+    id: 8,
+    navLink: "/admin_fund",
+    navItem: "Upload Qr",
+    navIcon: (
+      <span>
+        <Money color="#15317E" fontSize="medium" />
+      </span>
+    ),
+    subcomponent: [],
+  },
   {
     id: 14,
     navLink: "/user_detail",
@@ -577,6 +600,7 @@ export const all_Data = [
     subcomponent: [],
   },
 
+  
   // {
   //   id: 12,
   //   navLink: "/dashboard",

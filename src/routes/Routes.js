@@ -7,6 +7,8 @@ import Direct from '../dashboard/pages/income/Direct';
 import Level from '../dashboard/pages/income/Level';
 import ROI from '../dashboard/pages/income/ROI';
 import MainLayout from '../dashboard/pages/Layout/MainLayout';
+import JoinMember from '../dashboard/pages/network/JoinMember';
+import Team from '../dashboard/pages/network/Team';
 import Profile from '../dashboard/pages/Profile';
 import Wallet from '../dashboard/pages/Wallet';
 import Withdrawal from '../dashboard/pages/Withdrawal';
@@ -51,6 +53,14 @@ export const routes = [
    {
     path: '/fund-tranfer',
     element: (<MainLayout><FundTransfer /> </MainLayout>),
+  },
+    {
+    path: '/referral',
+    element: (<MainLayout><JoinMember /> </MainLayout>),
+  },
+   {
+    path: '/team',
+    element: (<MainLayout><Team /> </MainLayout>),
   },
   
 ];

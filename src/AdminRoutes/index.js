@@ -10,6 +10,7 @@
 // import Coupon from "../Adminpages/Pages/Coupon/coupon";
 // import DirectCoupon from "../Adminpages/Pages/Coupon/directCoupon";
 import Dashboard from "../Adminpages/Pages/dashboard/Dashboard";
+import AddAddress from "../Adminpages/Pages/fund/AddAddress";
 import BoosterBonus from "../Adminpages/Pages/genealogy/BoosterBonus";
 import MatchingBonus from "../Adminpages/Pages/genealogy/BoosterBonus";
 import DirectBonus from "../Adminpages/Pages/genealogy/DirectBonus";
@@ -30,6 +31,7 @@ import DirectBonus from "../Adminpages/Pages/genealogy/DirectBonus";
 import LevelBonus from "../Adminpages/Pages/genealogy/LevelBonus";
 import ROIBonus from "../Adminpages/Pages/genealogy/ROIBonus";
 import WeeklyBonus from "../Adminpages/Pages/genealogy/WeeklyBonus";
+import INRPaying from "../Adminpages/Pages/INRPayment/INRPaying";
 // import SalaryBonus from "../Adminpages/Pages/genealogy/SailaryBonus";
 // import SelfDepositBonus from "../Adminpages/Pages/genealogy/SelfDepositBonus";
 // import TeamReferral from "../Adminpages/Pages/genealogy/TeamRefferral";
@@ -344,12 +346,12 @@ export const adminroutes = [
   //   component: <GhaziabadResult/>,
   //   navItem: "Ghaziabad",
   // },
-  // {
-  //   id: 42,
-  //   path: "/inr_Paying",
-  //   component: <INRPaying/>,
-  //   navItem: "INR Paying",
-  // },
+  {
+    id: 42,
+    path: "/inr_Paying",
+    component: <INRPaying/>,
+    navItem: "INR Paying",
+  },
   {
     id: 43,
     path: "/inr_Payout",
@@ -405,6 +407,12 @@ export const adminroutes = [
     path: "/topup",
     component: <TopUp/>,
     navItem: "Top Up",
+  },
+    {
+    id: 45,
+    path: "/admin_fund",
+    component: <AddAddress/>,
+    navItem: "Fund",
   },
   
   // {

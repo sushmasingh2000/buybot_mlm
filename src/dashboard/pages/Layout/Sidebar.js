@@ -50,16 +50,16 @@ const Sidebar = () => {
             ],
         },
         { title: "Activation", icon: <FaPowerOff />, path: "/activation" },
-        // {
-        //     title: "Network",
-        //     icon: <FaNetworkWired />,
-        //     subItems: [
-        //         { title: "My Team", path: "/dashboard" },
-        //         { title: "Tree View", path: "/dashboard" },
-        //     ],
-        // },
+        {
+            title: "Network",
+            icon: <FaNetworkWired />,
+            subItems: [
+                { title: "Referral", path: "/referral" },
+                // { title: "Team", path: "/team" },
+            ],
+        },
 
-        { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
+        // { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
         { title: "Withdrawal", icon: <FaExchangeAlt />, path: "/withdrawal" },
         { title: "Profile Settings", icon: <FaUserCog />, path: "/profile" },
         // { title: "Support", icon: <FaHeadset />, path: "/dashboard" },

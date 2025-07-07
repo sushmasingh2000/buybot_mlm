@@ -1,49 +1,61 @@
-import { FilterAlt, Lock } from "@mui/icons-material";
-import { Button, TextField } from "@mui/material";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useFormik } from 'formik';
+import moment from 'moment';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import CustomToPagination from '../../../Shared/Pagination';
+import { apiConnectorGet, apiConnectorPost } from '../../../utils/APIConnector';
+import { endpoint } from '../../../utils/APIRoutes';
+import CustomTable from '../../Shared/CustomTable';
+import { Button } from '@mui/material';
+import { Lock } from '@mui/icons-material';
+import toast from 'react-hot-toast';
 import SweetAlert from "sweetalert2";
-import CustomTable from "../../Shared/CustomTable";
-import { API_URLS } from "../../config/APIUrls";
-import axiosInstance from "../../config/axios";
 
 const INRPaying = () => {
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [totalamount, setTotalamount] = useState([]);
-  const [from_date, setFrom_date] = useState("");
-  const [to_date, setTo_date] = useState("");
-  const [loding, setloding] = useState(false);
-
-  const INRPayingFunction = async () => {
-    setloding(true);
-    try {
-      const res = await axiosInstance.post(API_URLS?.inr_payingdata, {
-        start_date: from_date,
-        end_date: to_date,
-        username: search,
-      });
-      setData(res?.data?.data || []);
-      setTotalamount(res?.data?.total);
-
-      if (res) {
-        setTo_date("");
-        setFrom_date("");
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    setloding(false);
+  const client = useQueryClient();
+  const [page, setPage] = useState(1)
+  const initialValuesssss = {
+    search: '',
+    pageSize: 10,
+    start_date: '',
+    end_date: '',
   };
 
+  const fk = useFormik({
+    initialValues: initialValuesssss,
+    enableReinitialize: true,
+
+  })
+  const { data, isLoading } = useQuery(
+    ['get_paying_Admin', fk.values.search, fk.values.start_date, fk.values.end_date, page],
+    () =>
+      apiConnectorPost(endpoint?.admin_paying_report, {
+        search: fk.values.search,
+        start_date: fk.values.start_date,
+        end_date: fk.values.end_date,
+        pageNumber: page,
+        pageSize: "10",
+      }),
+    {
+      keepPreviousData: true,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
+      onError: (err) => console.error("Error fetching direct data:", err),
+    }
+  );
+
+  const allData = data?.data?.result || [];
   const changeStatusApprovedFunction = async (id) => {
     try {
-      const res = await axiosInstance.get(
-        `${API_URLS?.approval_payin}?order_id=${id}`
+      const res = await apiConnectorPost(
+        endpoint?.change_status_fund, {
+        tr09_req_id: id,
+        status: 2
+      }
       );
-      if (res) INRPayingFunction();
-      toast(res?.data?.msg);
+      client.refetchQueries("get_paying_Admin")
+      toast(res?.data?.message);
       console.log(res);
     } catch (e) {
       console.log(e);
@@ -67,99 +79,166 @@ const INRPaying = () => {
       }
     });
   };
-  useEffect(() => {
-    INRPayingFunction();
-  }, []);
+  const changeStatusRejectFunction = async (id) => {
+    try {
+      const res = await apiConnectorPost(endpoint?.change_status_fund, {
+        tr09_req_id: id,
+        status: 3,
+      });
+      client.refetchQueries("get_paying_Admin")
+      toast(res?.data?.message);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
+  const handleRejectSubmit = (id) => {
+    SweetAlert.fire({
+      title: "Are you sure?",
+      text: "You want to Reject this Amount!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+      customClass: {
+        confirmButton: "custom-confirm",
+        cancelButton: "custom-cancel",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        changeStatusRejectFunction(id);
+      }
+    });
+  };
   const tablehead = [
-    <span>S.No</span>,
-    <span>Name</span>,
+    <span>S.No.</span>,
     <span>User Id</span>,
-    <span>Mobile</span>,
-    <span>Amount</span>,
+    <span>Name</span>,
+    <span>Amount ($)</span>,
     <span>Status</span>,
-    <span>UTR Number</span>,
-    <span>Req Date / Time</span>,
-    <span>Success Date / Time</span>,
-    <span>Action</span>,
+    <span>Date</span>,
+    <span>Action</span>
+
+
   ];
-
-  const tablerow = data?.map((i, index) => {
+  const tablerow = allData?.data?.map((row, index) => {
     return [
-      <span>{index + 1}</span>,
-      <span>{i?.full_name}</span>,
-      <span>{i?.username}</span>,
-      <span>{i?.mobile}</span>,
-      <span>{i?.tr15_amt}</span>,
-      <span>{i?.tr15_status}</span>,
-      <span className="">{i?.tr15_trans}</span>,
-      <span className="">
-        {moment(i?.tr15_date)?.format("DD-MM-YYYY HH:mm:ss")}
-      </span>,
-      <span className="">
-        {i?.tr15_status === "Pending"
-          ? "--"
-          : moment(i?.success_date)
-          .format("DD-MM-YYYY HH:mm:ss")
-        }
-      </span>,
-
+      <span> {index + 1}</span>,
+      <span>{row?.or_m_user_id}</span>,
+      <span> {row?.or_m_name || 0}</span>,
+      <span>{row?.tr09_req_amount}</span>,
       <span>
-        {i?.tr15_status === "Pending" ? (
-          <Button
-            variant="contained"
-            className="!bg-[#198754]"
-            onClick={() => handleSubmit(i?.tr15_trans)}
+        {row?.m_top_status === 1
+          ? "Pending"
+          : row?.m_top_status === 2
+            ? "Approved"
+            : row?.m_top_status === 3
+              ? "Rejected"
+              : "N/A"}
+      </span>,
+      <span>{row?.m_top_reqdate ? moment(row?.m_top_reqdate)?.format("DD-MM-YYYY HH:mm:ss") : "--"}</span>,
+
+      <span className='flex justify-center gap-1'> <span>
+        {row?.m_top_status === 1  ? (
+          <button
+            className="!bg-[#198754] !text-white p-2 rounded"
+            onClick={() => handleSubmit(row?.tr09_req_id)}
           >
             Approve
-          </Button>
+          </button>
         ) : (
           <Lock />
         )}
-      </span>,
+      </span>
+        <span>
+          {row?.m_top_status === 1 ? (
+            <button
+              className="!bg-red-500 !text-white p-2 rounded"
+
+              onClick={() => handleRejectSubmit(row?.tr09_req_id)}
+            >
+              Reject
+            </button>
+          ) : (
+            <Lock />
+          )}
+        </span></span>
     ];
-  });
+  })
 
   return (
-    <div>
-      <div className="flex px-2 gap-5 !justify-start py-2">
-        <span className="font-bold">From:</span>
-        <TextField
-          type="date"
-          value={from_date}
-          onChange={(e) => setFrom_date(e.target.value)}
-        />
-        <span className="font-bold">To:</span>
-        <TextField
-          type="date"
-          value={to_date}
-          onChange={(e) => setTo_date(e.target.value)}
-        />
-        <TextField
-          type="search"
-          placeholder="Search by user id"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <Button
-          onClick={() => INRPayingFunction()}
-          variant="contained"
-          startIcon={<FilterAlt />}
-        >
-          Filter
-        </Button>
-      </div>
-      <CustomTable
-        isTotal={
-          <div className="bg-white my-2 p-2 px-5 !text-right">
-            Total Amount : <span className="!font-bold">{totalamount}</span>
+    <>
+
+      <div className="p-2">
+        <div className="bg-white bg-opacity-50 rounded-lg shadow-lg p-3 text-white mb-6">
+
+
+          <div className="flex flex-col sm:flex-wrap md:flex-row items-center gap-3 sm:gap-4 w-full text-sm sm:text-base">
+            <input
+              type="date"
+              name="start_date"
+              id="start_date"
+              value={fk.values.start_date}
+              onChange={fk.handleChange}
+              className="bg-white bg-opacity-50 border border-gray-600 rounded-md py-2 px-3 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto text-sm"
+            />
+            <input
+              type="date"
+              name="end_date"
+              id="end_date"
+              value={fk.values.end_date}
+              onChange={fk.handleChange}
+              className="bg-white bg-opacity-50 border border-gray-600 rounded-md py-2 px-3 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto text-sm"
+            />
+            <input
+              type="text"
+              name="search"
+              id="search"
+              value={fk.values.search}
+              onChange={fk.handleChange}
+              placeholder="User ID"
+              className="bg-white bg-opacity-50 border border-gray-600 rounded-full py-2 px-3 text-black placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto text-sm"
+            />
+            <button
+              onClick={() => {
+                setPage(1);
+                client.invalidateQueries(["get_withdrawal_Admin"]);
+              }}
+              type="submit"
+              className="bg-blue-500 text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-dark-color transition-colors w-full sm:w-auto text-sm"
+            >
+              Search
+            </button>
+            <button
+              onClick={() => {
+                fk.handleReset();
+                setPage(1);
+              }}
+              className="bg-gray-color text-gray-900 font-bold py-2 px-4 rounded-full hover:bg-black hover:text-white transition-colors w-full sm:w-auto text-sm"
+            >
+              Clear
+            </button>
           </div>
-        }
-        tablehead={tablehead}
-        tablerow={tablerow}
-        isLoading={loding}
-      />
-    </div>
+        </div>
+
+
+        {/* Main Table Section */}
+        <CustomTable
+          tablehead={tablehead}
+          tablerow={tablerow}
+          isLoading={isLoading}
+        />
+
+
+        {/* Pagination */}
+        <CustomToPagination
+          page={page}
+          setPage={setPage}
+          data={allData}
+        />
+      </div>
+    </>
   );
 };
 

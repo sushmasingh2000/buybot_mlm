@@ -1,4 +1,4 @@
-// export const domain = 'http://192.168.18.214:9009';
+// export const domain = 'http://192.168.18.171:9009';
 export const domain = 'https://buybot.club';
 export const frontend = 'https://buybot.club';
 export const dollar = "$"
@@ -23,7 +23,26 @@ export const endpoint = {
   withdrawal_list: `${domain}/api/v1/withdrawal-report`,
   admin_withdrawal_list: `${domain}/api/v1/admin-withdrawal-report`,
   withdrawal_request: `${domain}/api/v1/withdrawal-request-approval`,
-  
+  admin_upload_qr: `${domain}/api/v1/admin-upload-qr`,
+  get_admin_upload_qr: `${domain}/api/v1/get-admin-upload-qr`,
+  get_user_upload_qr: `${domain}/api/v1/get-user-upload-qr`,
+  add_user_fund_request: `${domain}/api/v1/add-user-fund-request`,
+  get_user_fund_request: `${domain}/api/v1/get-user-fund-request`,
+  admin_paying_report: `${domain}/api/v1/get-admin-fund-request`,
+  change_status_fund: `${domain}/api/v1/change-fund-request_admin`,
+  direct_referral_user: `${domain}/api/v1/user-direct-referral-details`,
+  // team_downline_user: `${domain}/api/v1/user-team-downline-details`,
+
+
+
+
+
+
+
+
+
+
+
 
 
   wallet_api: `${domain}/api/v1/check-wallet-address-availability`,
