@@ -132,11 +132,11 @@ const Login = () => {
       }}
     >
           <div
-           className="w-full max-w-lg lg:p-6 p-4 border-[#008eff] border rounded-xl shadow-2xl"
-            style={{
-              backgroundImage:
-                "linear-gradient(225deg, rgba(0, 170, 216, 1) 0%, rgba(20, 20, 20, 1) 61%)",
-            }}
+           className="w-full max-w-lg lg:p-6 p-4 border-border-color-green border rounded-xl shadow-2xl"
+            // style={{
+            //   backgroundImage:
+            //     "linear-gradient(225deg, rgba(0, 170, 216, 1) 0%, rgba(20, 20, 20, 1) 61%)",
+            // }}
           >
             <div className="flex justify-center my-2">
               <img src={logo} alt="Logo" className="h-20  " />
@@ -185,11 +185,11 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(225deg, rgba(0, 170, 216, 1) 0%, rgba(20, 20, 20, 1) 61%)",
-                }}
-                className="w-full py-3 text-white border-2 border-[#008eff] font-semibold rounded-full hover:bg-[#128C7E] focus:outline-none focus:ring-2 focus:ring-[#128C7E] transition duration-300 ease-in-out transform hover:scale-105"
+                // style={{
+                //   backgroundImage:
+                //     "linear-gradient(225deg, rgba(0, 170, 216, 1) 0%, rgba(20, 20, 20, 1) 61%)",
+                // }}
+                className="w-full py-3 text-white border-2 border-border-color-green font-semibold rounded-full hover:bg-black bg-[#128C7E] focus:outline-none focus:ring-2 focus:ring-[#128C7E] transition duration-300 ease-in-out transform hover:scale-105"
               >
                 Login
               </button>

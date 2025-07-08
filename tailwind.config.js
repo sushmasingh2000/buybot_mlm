@@ -13,6 +13,7 @@ module.exports = {
         background: "#ffffff",
         "text-color": "#4ade80",
         "gray-color": "#f2f0ef",
+        "border-color-green" : "#3dd498"
       },
       backgroundImage: {
         "custom-gradient":
