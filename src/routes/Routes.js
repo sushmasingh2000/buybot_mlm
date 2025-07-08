@@ -8,8 +8,8 @@ import Level from '../dashboard/pages/income/Level';
 import ROI from '../dashboard/pages/income/ROI';
 import MainLayout from '../dashboard/pages/Layout/MainLayout';
 import JoinMember from '../dashboard/pages/network/JoinMember';
-import Team from '../dashboard/pages/network/Team';
 import Profile from '../dashboard/pages/Profile';
+import Team from '../dashboard/pages/TeamTree/Team';
 import Wallet from '../dashboard/pages/Wallet';
 import Withdrawal from '../dashboard/pages/Withdrawal';
 

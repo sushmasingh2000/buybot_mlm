@@ -46,21 +46,7 @@ const INRPaying = () => {
   );
 
   const allData = data?.data?.result || [];
-  const changeStatusApprovedFunction = async (id) => {
-    try {
-      const res = await apiConnectorPost(
-        endpoint?.change_status_fund, {
-        tr09_req_id: id,
-        status: 2
-      }
-      );
-      client.refetchQueries("get_paying_Admin")
-      toast(res?.data?.message);
-      console.log(res);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
   const handleSubmit = (id) => {
     SweetAlert.fire({
       title: "Are you sure?",
@@ -75,15 +61,15 @@ const INRPaying = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        changeStatusApprovedFunction(id);
+        handleRequestStatus(id,2);
       }
     });
   };
-  const changeStatusRejectFunction = async (id) => {
+  const handleRequestStatus = async (id,status) => {
     try {
       const res = await apiConnectorPost(endpoint?.change_status_fund, {
         tr09_req_id: id,
-        status: 3,
+        status: status,
       });
       client.refetchQueries("get_paying_Admin")
       toast(res?.data?.message);
@@ -107,7 +93,7 @@ const INRPaying = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        changeStatusRejectFunction(id);
+        handleRequestStatus(id,3);
       }
     });
   };
@@ -129,18 +115,18 @@ const INRPaying = () => {
       <span> {row?.or_m_name || 0}</span>,
       <span>{row?.tr09_req_amount}</span>,
       <span>
-        {row?.m_top_status === 1
+        {row?.m_top_status === 2
           ? "Pending"
-          : row?.m_top_status === 2
+          : row?.m_top_status === 1
             ? "Approved"
-            : row?.m_top_status === 3
+            : row?.m_top_status === 0
               ? "Rejected"
               : "N/A"}
       </span>,
       <span>{row?.m_top_reqdate ? moment(row?.m_top_reqdate)?.format("DD-MM-YYYY HH:mm:ss") : "--"}</span>,
 
       <span className='flex justify-center gap-1'> <span>
-        {row?.m_top_status === 1  ? (
+        {row?.m_top_status === 2  ? (
           <button
             className="!bg-[#198754] !text-white p-2 rounded"
             onClick={() => handleSubmit(row?.tr09_req_id)}
@@ -152,7 +138,7 @@ const INRPaying = () => {
         )}
       </span>
         <span>
-          {row?.m_top_status === 1 ? (
+          {row?.m_top_status === 2 ? (
             <button
               className="!bg-red-500 !text-white p-2 rounded"
 

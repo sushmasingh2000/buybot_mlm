@@ -51,6 +51,8 @@ const Dashboard = () => {
     { title: "Total Team Business", value: Number(dashboard?.tot_left_t || 0)?.toFixed(2), icon: <FaSitemap /> },
     { title: "Direct / Referral", value: Number(dashboard?.tot_d_left || 0)?.toFixed(2), icon: <FaUserFriends /> },
     { title: "Total Direct Business", value: Number(dashboard?.tot_d_left_t || 0)?.toFixed(2), icon: <FaUserFriends /> },
+    { title: "Withdrawal", value: Number(dashboard?.withdrawal || 0)?.toFixed(2), icon: <FaUserFriends /> },
+    { title: "Withdrawal Pending", value: Number(dashboard?.withdrawal_pending || 0)?.toFixed(2), icon: <FaUserFriends /> },
   ];
   const functionTOCopy = (value) => {
     copy(value);

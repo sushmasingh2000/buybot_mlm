@@ -55,7 +55,7 @@ const Sidebar = () => {
             icon: <FaNetworkWired />,
             subItems: [
                 { title: "Referral", path: "/referral" },
-                // { title: "Team", path: "/team" },
+                { title: "Team", path: "/team" },
             ],
         },
 
