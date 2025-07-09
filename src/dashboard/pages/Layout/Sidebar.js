@@ -45,7 +45,7 @@ const Sidebar = () => {
             title: "Fund",
             icon: <FaMoneyBillWave />,
             subItems: [
-                { title: " Fund Request", path: "/fund" },
+                { title: "Fund Request", path: "/fund" },
                 { title: "Transfer", path: "/fund-tranfer" }
             ],
         },
@@ -55,7 +55,8 @@ const Sidebar = () => {
             icon: <FaNetworkWired />,
             subItems: [
                 { title: "Referral", path: "/referral" },
-                { title: "Team", path: "/team" },
+                { title: "Level Tree", path: "/team" },
+                 { title: "Downline", path: "/downline" },
             ],
         },
 
@@ -108,7 +109,7 @@ const Sidebar = () => {
                 <div className="flex items-center justify-between p-4 border-b border-gray-700 lg:hidden">
                     <div className="flex items-center space-x-2 text-xl font-bold">
                         <span className="bg-gold-color text-black px-2 py-1 font-bold">Buy</span>
-                        <span>ECO SYSTEM</span>
+                        <span>Buy Bot</span>
                     </div>
                     <button onClick={() => setShowSidebar(false)} className="text-white text-xl">
                         <FaTimes />
@@ -121,7 +122,7 @@ const Sidebar = () => {
                 </div>
 
                 {/* Menu Items */}
-                <nav className="flex-1 p-2 space-y-1 text-sm overflow-y-auto">
+                <nav className="flex-1 p-2 space-y-1 text-sm overflow-y-auto example">
                     {menuItems.map((item, i) => {
                         const isMenuActive = activeMenu === item.title || activeMenu.startsWith(`${item.title} >`);
                         const isSubOpen = activeSubMenu === item.title;

@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { endpoint } from '../../../utils/APIRoutes';
 import { apiConnectorGet } from '../../../utils/APIConnector';
+import moment from 'moment/moment';
 
 const Team = () => {
   const [verticaa, setVertica] = useState('vertical');
@@ -97,7 +98,7 @@ const Team = () => {
           y={50}
           textAnchor="middle"
           fontWeight="bold"
-          fontSize="22"
+          fontSize="12"
           fill="black"
           stroke="none"
           id="basic-text"
@@ -117,7 +118,7 @@ const Team = () => {
 
   return (
     <>
-      <div className="flex min-h-screen justify-center items-center">
+      <div className="flex min-h-screen justify-center items-center ">
         {/* Sidebar Toggle for Mobile */}
         <div className="md:hidden fixed top-4 right-3 z-50">
           <button
@@ -127,8 +128,7 @@ const Team = () => {
             <WidgetsIcon className="text-black !text-3xl" />
           </button>
         </div>
-
-        {/* Sidebar */}
+        {/* Sidebar only developer change  
         <div
           className={`fixed md:static top-0 right-0 z-40 md:h-screen bg-white shadow-md ease-in-out transition-all transition-duration-300 text-black ${
             showSidebar ? 'w-[250px] p-6 space-y-4 ' : 'w-0 p-0 overflow-hidden'
@@ -162,14 +162,14 @@ const Team = () => {
             ))}
           </div>
         </div>
-
+*/}
         {/* Tree Chart */}
         <div
-          className={`flex-1 h-screen flex flex-col justify-center items-center ${
-            showSidebar ? 'pl-[250px]' : 'pl-0'
-          }`}
+          className={`flex-1  h-screen flex  flex-col justify-center items-center ${showSidebar ? 'pl-[250px]' : 'pl-0'
+            }`}
         >
-          <div ref={treeContainerRef} id="treeWrapper" className="w-full h-full">
+          <div ref={treeContainerRef} id="treeWrapper" className="w-full h-full "
+            style={{ maxHeight: '100vh' }} >
             {orgChart && (
               <Tree
                 data={orgChart}
@@ -212,9 +212,9 @@ const Team = () => {
               Topup Date
             </p>
             <p className="px-4 py-2 text-sm text-center border border-gray-700">
-              {selectedNode?.topup_date === '0' ? '--' : selectedNode?.topup_date}
+              {selectedNode?.topup_date === '0' ? '--' : moment(selectedNode?.topup_date)?.format("DD-MM-YYYY")}
             </p>
-            <p className="px-4 py-2 text-center font-semibold border border-gray-700">
+            {/*    <p className="px-4 py-2 text-center font-semibold border border-gray-700">
               Email
             </p>
             <p className="px-4 py-2 text-sm text-center border border-gray-700">
@@ -225,7 +225,7 @@ const Team = () => {
             </p>
             <p className="px-4 py-2 text-sm text-center border border-gray-700">
               {selectedNode?.mobile}
-            </p>
+            </p> */}
           </div>
         </MenuItem>
       </Menu>

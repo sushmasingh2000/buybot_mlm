@@ -7,6 +7,7 @@ import Direct from '../dashboard/pages/income/Direct';
 import Level from '../dashboard/pages/income/Level';
 import ROI from '../dashboard/pages/income/ROI';
 import MainLayout from '../dashboard/pages/Layout/MainLayout';
+import Downline from '../dashboard/pages/network/Downline';
 import JoinMember from '../dashboard/pages/network/JoinMember';
 import Profile from '../dashboard/pages/Profile';
 import Team from '../dashboard/pages/TeamTree/Team';
@@ -61,6 +62,10 @@ export const routes = [
    {
     path: '/team',
     element: (<MainLayout><Team /> </MainLayout>),
+  },
+   {
+    path: '/downline',
+    element: (<MainLayout><Downline /> </MainLayout>),
   },
   
 ];

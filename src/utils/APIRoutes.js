@@ -1,5 +1,5 @@
-// export const domain = 'http://192.168.18.214:9009';
-export const domain = 'https://buybot.club';
+export const domain = 'http://192.168.18.101:9009';
+// export const domain = 'https://buybot.club';
 export const frontend = 'https://buybot.club';
 export const dollar = "$"
 
@@ -32,6 +32,8 @@ export const endpoint = {
   change_status_fund: `${domain}/api/v1/change-fund-request_admin`,
   direct_referral_user: `${domain}/api/v1/user-direct-referral-details`,
   team_downline_user: `${domain}/api/v1/user-team-downline-details`,
+  team_downline_user_filterwise: `${domain}/api/v1/user-team-downline-details-filterwise`,
+  update_user_profile: `${domain}/api/v1/user-update-profile`,
 
 
 

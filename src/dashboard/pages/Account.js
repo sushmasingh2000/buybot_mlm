@@ -22,8 +22,8 @@ const Account = () => {
             <div className="bg-[#1e293b] text-white rounded-xl shadow p-6 border border-gray-700">  <h2 className="text-center text-xl font-bold mb-6">Account</h2>
                 <div className="space-y-3 text-sm sm:text-base">
                     <Row label="Joining Date:" value={moment(user_profile.Joining_Date)?.format("DD-MM-YYYY")} />
-                    <Row label="Id No:" value={user_profile.Login_Id} highlight />
-                    <Row label="Id Name:" value={user_profile.Associate_Name} highlight />
+                    <Row label="Login Id :" value={user_profile.Login_Id} highlight />
+                    <Row label="Name:" value={user_profile.Associate_Name} highlight />
                     <Row label="Email:" value={user_profile.Email} highlight />
                     <Row label="Mobile No:" value={user_profile.Mobile_No} highlight color="text-green-400" />
                 </div>

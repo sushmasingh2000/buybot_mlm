@@ -15,6 +15,7 @@ import { useQuery } from "react-query";
 import { apiConnectorGet } from "../utils/APIConnector";
 import { endpoint, frontend } from "../utils/APIRoutes";
 import Account from "./pages/Account";
+import CappingPieChart from "./pages/CappingChart";
 
 const Dashboard = () => {
 
@@ -39,7 +40,12 @@ const Dashboard = () => {
     }
   );
   const user_profile = profile?.data?.result;
-
+  const Row = ({ label, value, highlight = false, color = "text-yellow-400" }) => (
+    <div className="flex justify-between pb-1">
+      <span className="text-white">{label}</span>
+      <span className={highlight ? `${color} font-semibold` : "text-white"}>{value}</span>
+    </div>
+  );
   const statCards = [
     { title: "Main Wallet", value: Number(user_profile?.or_m_income_wallet || 0)?.toFixed(2), icon: <FaWallet /> },
     { title: "Fund Wallet", value: Number(user_profile?.or_m_fund_wallet || 0)?.toFixed(2), icon: <FaChartLine /> },
@@ -84,9 +90,11 @@ const Dashboard = () => {
           </div>
 
           <div className="w-full md:w-[calc(50%-0.5rem)] bg-[#1e293b] text-white p-4 rounded shadow">
-            <h2 className="font-bold flex items-center gap-2">
-              <FaBell /> News / Notification
-            </h2>
+            <Row label="Email" value={user_profile?.Email} highlight />
+            <Row label="Mobile No" value={user_profile?.Mobile_No} highlight color="text-green-400" />
+            <Row label="Activation Date" value={user_profile?.TOPDATE} highlight color="text-green-400" />
+            <Row label="TopUp Amount" value={`${"$"} ${user_profile?.Topup_amt}`} highlight color="text-green-400" />
+
           </div>
         </div>
 
@@ -104,7 +112,10 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        <Account />
+      <div className="flex items-center justify-between">
+          <Account />
+        {/* <CappingPieChart/> */}
+      </div>
       </main>
     </div>
   );

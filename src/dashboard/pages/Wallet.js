@@ -25,6 +25,7 @@ const Wallet = () => {
     }
   );
   const user_profile = profile?.data?.result || 0 ;
+
   return (
     <div className="p-2 min-h-screen bg-gray-900">
       <div className="bg-gray-800 rounded-lg shadow-lg p-6 text-white border border-gray-700 mb-6 flex flex-col  justify-between items-start md:items-center gap-6">
@@ -48,6 +49,7 @@ const Wallet = () => {
             </button>
           </div>
       </div>
+      
     </div>
   );
 };
