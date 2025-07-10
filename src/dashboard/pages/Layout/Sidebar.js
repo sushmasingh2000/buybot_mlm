@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../../assets/favicon.png";
-import { FaAngleDown, FaAngleRight, FaUserFriends, FaCoins, FaExchangeAlt, FaHeadset, FaMoneyBillWave, FaNetworkWired, FaPowerOff, FaSignOutAlt, FaTachometerAlt, FaTimes, FaUserCog, FaWallet } from "react-icons/fa";
+import { FaAngleDown, FaAngleRight, FaUserFriends, FaCoins, FaExchangeAlt, FaHeadset, FaMoneyBillWave, FaNetworkWired, FaPowerOff, FaSignOutAlt, FaTachometerAlt, FaTimes, FaUserCog, FaWallet, FaCheck } from "react-icons/fa";
 import { useQuery } from "react-query";
 import { apiConnectorGet } from "../../../utils/APIConnector";
 import { endpoint } from "../../../utils/APIRoutes";
@@ -41,15 +41,8 @@ const Sidebar = () => {
                 { title: "Direct Income", path: "/income/direct" },
             ],
         },
-        {
-            title: "Fund",
-            icon: <FaMoneyBillWave />,
-            subItems: [
-                { title: "Fund Request", path: "/fund" },
-                { title: "Transfer", path: "/fund-tranfer" }
-            ],
-        },
-        { title: "Activation", icon: <FaPowerOff />, path: "/activation" },
+       
+        { title: "Activation", icon: <FaCheck />, path: "/activation" },
         {
             title: "Network",
             icon: <FaNetworkWired />,
@@ -61,7 +54,15 @@ const Sidebar = () => {
         },
 
         // { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
-        { title: "Withdrawal", icon: <FaExchangeAlt />, path: "/withdrawal" },
+         {
+            title: "Fund",
+            icon: <FaMoneyBillWave />,
+            subItems: [
+                { title: "Fund Request", path: "/fund" },
+                { title: "Transfer", path: "/fund-tranfer" }
+            ],
+        },
+        { title: "Payout", icon: <FaExchangeAlt />, path: "/withdrawal" },
         { title: "Profile Settings", icon: <FaUserCog />, path: "/profile" },
         // { title: "Support", icon: <FaHeadset />, path: "/dashboard" },
         {

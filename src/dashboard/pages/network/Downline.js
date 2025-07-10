@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { apiConnectorGet, apiConnectorPost } from '../../../utils/APIConnector';
+import {  apiConnectorPost } from '../../../utils/APIConnector';
 import { endpoint } from '../../../utils/APIRoutes';
 import CustomTable from '../../../Shared/CustomTable';
 import CustomToPagination from '../../../Shared/Pagination';
@@ -72,7 +72,7 @@ const Downline = () => {
     return (
         <div className="p-2">
             <div className="bg-gray-800 rounded-lg shadow-lg p-3 text-white border border-gray-700 mb-6">
-                <h2 className="text-xl font-semibold mb-4 text-gray-200">Referral</h2>
+                <h2 className="text-xl font-semibold mb-4 text-gray-200">Downline</h2>
 
                 <div className="flex flex-col sm:flex-wrap md:flex-row items-center gap-3 sm:gap-4 w-full text-sm sm:text-base">
                     <input

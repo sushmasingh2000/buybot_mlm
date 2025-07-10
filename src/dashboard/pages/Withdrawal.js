@@ -100,15 +100,15 @@ const Withdrawal = () => {
             <span>{row?.m_w_reqdate1 ? moment?.utc(row?.m_w_reqdate1)?.format("DD-MM-YYYY HH:mm:ss") : "--"}</span>,
             <span>{row?.m_order_id}</span>,
             <span> {row?.m_w_amount || 0}</span>,
-            <span>{row?.m_w_crypto_address}</span>,
+            <span>{row?.or_m_wallet_address}</span>,
             <span>{row?.m_w_status || 'N/A'}</span>,
 
         ];
     })
     return (
         <>
-            <div className="lg:py-8 bg-gray-900 text-gray-100 rounded-xl flex items-center justify-center">
-                <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
+ {/* <div className="lg:py-8 bg-gray-900 text-gray-100 rounded-xl flex items-center justify-center">
+               <div className="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-lg">
                     <div className='mb-3'>
                         <label htmlFor="walletBalance" className="block text-sm font-medium text-gray-300 mb-1">
                             Wallet ($)
@@ -161,11 +161,11 @@ const Withdrawal = () => {
                             Cancel
                         </button>
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div>*/}
             <div className="p-2">
                 <div className="bg-gray-800 rounded-lg shadow-lg p-3 text-white border border-gray-700 mb-6">
-                    <h2 className="text-xl font-semibold mb-4 text-gray-200">Withdrawal</h2>
+                    <h2 className="text-xl font-semibold mb-4 text-gray-200">Payout Report</h2>
 
                     <div className="flex flex-col sm:flex-wrap md:flex-row items-center gap-3 sm:gap-4 w-full text-sm sm:text-base">
                         <input
