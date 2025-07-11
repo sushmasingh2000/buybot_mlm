@@ -9,7 +9,7 @@ const MainLayout = ({ children }) => {
       <div className="flex-1 overflow-auto">
         
         {/* Navbar visible only on md and above */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <Navbar />
         </div>
 

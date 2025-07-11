@@ -27,8 +27,19 @@ root.render(
         limit={1}
       />
     </QueryClientProvider>
-
   </React.StrictMode>
 );
+
+// ✅ Add this block BELOW your ReactDOM render, BEFORE reportWebVitals
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('✅ Service Worker registered: ', registration);
+      }).catch((registrationError) => {
+        console.error('❌ Service Worker registration failed: ', registrationError);
+      });
+  });
+}
 
 reportWebVitals();

@@ -5,6 +5,7 @@ import { FaAngleDown, FaAngleRight, FaUserFriends, FaCoins, FaExchangeAlt, FaHea
 import { useQuery } from "react-query";
 import { apiConnectorGet } from "../../../utils/APIConnector";
 import { endpoint } from "../../../utils/APIRoutes";
+import NotificationPopup from "./Notificationpopup";
 
 const Sidebar = () => {
     const [activeMenu, setActiveMenu] = useState("Dashboard");
@@ -41,7 +42,7 @@ const Sidebar = () => {
                 { title: "Direct Income", path: "/income/direct" },
             ],
         },
-       
+
         { title: "Activation", icon: <FaCheck />, path: "/activation" },
         {
             title: "Network",
@@ -49,12 +50,12 @@ const Sidebar = () => {
             subItems: [
                 { title: "Referral", path: "/referral" },
                 { title: "Level Tree", path: "/team" },
-                 { title: "Downline", path: "/downline" },
+                { title: "Downline", path: "/downline" },
             ],
         },
 
         // { title: "Wallet", icon: <FaWallet />, path: "/wallet" },
-         {
+        {
             title: "Fund",
             icon: <FaMoneyBillWave />,
             subItems: [
@@ -73,16 +74,16 @@ const Sidebar = () => {
         },
     ];
 
-     const { data:profile } = useQuery(
+    const { data: profile } = useQuery(
         ["get_profile"],
         () => apiConnectorGet(endpoint?.profile_api),
         {
-          refetchOnMount: false,
-          refetchOnReconnect: false,
-          refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
         }
-      );
-      const user_profile = profile?.data?.result || 0 ;
+    );
+    const user_profile = profile?.data?.result || 0;
 
     return (
         <>
@@ -93,7 +94,9 @@ const Sidebar = () => {
                         ☰
                     </button>
                     <h1 className="text-xl font-semibold">Dashboard</h1>
+                 
                     <div className="flex items-center space-x-2 font-medium">
+                         <NotificationPopup />
                         <FaUserFriends />
                         <span>{user_profile?.Associate_Name}</span>
                     </div>
@@ -119,7 +122,7 @@ const Sidebar = () => {
 
                 {/* Desktop Sidebar Header */}
                 <div className="hidden lg:flex text-xl font-bold p-4 border-b border-gray-700 items-center justify-center space-x-2">
-                  <img src={logo} alt=""/>
+                    <img src={logo} alt="" />
                 </div>
 
                 {/* Menu Items */}
@@ -132,12 +135,12 @@ const Sidebar = () => {
                             <div key={i} className="border-b border-gray-700 pb-1 mb-1">
                                 <div
                                     onClick={() => {
-                                    if (item.onClick) {
-                                        item.onClick(); // This is where logout is handled
-                                    } else {
-                                        handleMenuClick(item.title, !!item.subItems, item.path);
-                                    }
-                                }}
+                                        if (item.onClick) {
+                                            item.onClick(); // This is where logout is handled
+                                        } else {
+                                            handleMenuClick(item.title, !!item.subItems, item.path);
+                                        }
+                                    }}
                                     className={`flex items-center justify-between p-2 rounded cursor-pointer transition font-medium ${isMenuActive ? "bg-gold-color text-black" : "hover:bg-gray-800 text-white"
                                         }`}
                                 >
