@@ -113,13 +113,13 @@ const Withdrawal = () => {
   };
   const tablehead = [
     <span>S.No.</span>,
-    <span>Date</span>,
-    <span>Transaction Id</span>,
     <span>User Id</span>,
     <span>Name</span>,
     <span>Amount ($)</span>,
     <span>Wallet Address</span>,
+    <span>Transaction Id</span>,
     <span>Status</span>,
+    <span>Date/Time</span>,
     <span>Action</span>
 
 
@@ -127,13 +127,14 @@ const Withdrawal = () => {
   const tablerow = allData?.data?.map((row, index) => {
     return [
       <span> {index + 1}</span>,
-      <span>{row?.m_w_reqdate1 ? moment?.utc(row?.m_w_reqdate1)?.format("DD-MM-YYYY HH:mm:ss") : "--"}</span>,
-      <span>{row?.m_order_id}</span>,
       <span>{row?.or_m_user_id}</span>,
       <span>{row?.or_m_name}</span>,
       <span> {row?.m_w_amount || 0}</span>,
-      <span>{row?.m_w_crypto_address}</span>,
+      <span>{row?.or_m_wallet_address}</span>,
+      <span>{row?.m_order_id}</span>,
       <span>{row?.m_w_status || 'N/A'}</span>,
+      <span>{row?.m_w_reqdate1 ? moment?.utc(row?.m_w_reqdate1)?.format("DD-MM-YYYY HH:mm:ss") : "--"}</span>,
+
      <span className='flex justify-center gap-1'> <span>
         {row?.m_w_status === "Pending" ? (
           <button
