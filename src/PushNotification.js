@@ -8,7 +8,7 @@ const PushNotification = ({ userId }) => {
     const setupMessaging = async () => {
       // 1. Check if FCM is supported
       if (!(await isSupported())) {
-        console.warn("🚫 Firebase messaging not supported in this browser");
+        console.warn(" Firebase messaging not supported in this browser");
         return;
       }
 
@@ -34,14 +34,14 @@ const PushNotification = ({ userId }) => {
       // 4. Request permission
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        console.warn("🔕 Notification permission not granted");
+        console.warn(" Notification permission not granted");
         return;
       }
 
       // 5. Get service worker registration here inside async function
       const registration = await navigator.serviceWorker.getRegistration();
       if (!registration) {
-        console.warn("⚠️ Service worker registration not found");
+        console.warn(" Service worker registration not found");
         return;
       }
 
@@ -54,18 +54,18 @@ const PushNotification = ({ userId }) => {
         });
 
         if (token) {
-          console.log("📲 FCM Token:", token);
+          console.log(" FCM Token:", token);
           if (userId) {
             await apiConnectorPost(endpoint.save_token, { token, userId });
           }
-        } else console.warn("⚠️ No FCM token available");
+        } else console.warn(" No FCM token available");
       } catch (err) {
-        console.error("❌ FCM token error:", err);
+        console.error(" FCM token error:", err);
       }
 
       // 7. Handle messages in foreground
       onMessage(messaging, (payload) => {
-        console.log("📩 Message received:", payload);
+        console.log(" Message received:", payload);
         const { title = "", body = "", icon } = payload.notification || {};
         new Notification(title, { body, icon: icon || "/logo.png" });
       });
