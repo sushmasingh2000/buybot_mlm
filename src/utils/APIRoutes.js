@@ -1,4 +1,4 @@
-// export const domain = 'http://192.168.18.101:9009';
+// export const domain = 'http://192.168.18.214:9033';
 export const domain = 'https://buybot.club';
 export const frontend = 'https://buybot.club';
 export const dollar = "$"
@@ -34,6 +34,7 @@ export const endpoint = {
   team_downline_user: `${domain}/api/v1/user-team-downline-details`,
   team_downline_user_filterwise: `${domain}/api/v1/user-team-downline-details-filterwise`,
   update_user_profile: `${domain}/api/v1/user-update-profile`,
+  forgot_email: `${domain}/api/v1/password-on-mail`,
 
 
 

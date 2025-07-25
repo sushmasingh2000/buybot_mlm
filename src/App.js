@@ -11,6 +11,8 @@ import { routes } from "./routes/Routes";
 import { adminroutes } from "./AdminRoutes";
 import AdminLayout from "./Adminpages/Layout";
 import LogIn from "./Adminpages/Authentication/Login";
+import ForgotPassword from "./authentication/Forgotpassword";
+import Dashboard from "./dashboard/Dashboard";
 
 const App = () => {
   const user = localStorage.getItem("logindataen");
@@ -22,8 +24,10 @@ const App = () => {
         <Route path="/" element={<BuyBot />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
         {/* //admin */}
         <Route path="/adminlogin" element={<LogIn />} />
+        
 
 
         {user ? (
@@ -46,7 +50,7 @@ const App = () => {
             <Route key={i} path={route.path} element={route.element} />
           ))
         ) : (
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<Dashboard />} />
         )}
       </Routes>
     </Router>

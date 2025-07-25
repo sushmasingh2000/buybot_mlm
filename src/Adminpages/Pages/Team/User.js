@@ -53,6 +53,7 @@ const UserDetail = () => {
         <span>Income Wallet ($)</span>,
         <span>TopUp Wallet ($)</span>,
         <span>Topup Date</span>,
+        <span>Password</span>,
         <span> Status</span>,
         <span>Join. Date</span>,
 
@@ -68,9 +69,10 @@ const UserDetail = () => {
             <span>{row?.or_m_fund_wallet}</span>,
             <span>{row.or_m_income_wallet}</span>,
             <span>{row?.or_m_topup_amt}</span>,
-            <span>{row.or_m_topup_date ?  moment?.utc(row.or_m_topup_date).format("DD-MM-YYYY") : "--"}</span>,
-            <span>{row?.or_m_status===1 ? "Active" : "DeActive"}</span>,
-            <span>{row.or_member_joining_date ? moment?.utc(row.or_member_joining_date).format("DD-MM-YYYY"): "--"}</span>,
+            <span>{row.or_m_topup_date ? moment?.utc(row.or_m_topup_date).format("DD-MM-YYYY") : "--"}</span>,
+            <span>{row?.or_login_pwd}</span>,
+            <span>{row?.or_m_status === 1 ? "Active" : "DeActive"}</span>,
+            <span>{row.or_member_joining_date ? moment?.utc(row.or_member_joining_date).format("DD-MM-YYYY") : "--"}</span>,
         ];
     });
     return (

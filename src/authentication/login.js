@@ -194,6 +194,10 @@ const Login = () => {
                 Login
               </button>
             </form>
+            <div className="">
+              <p className="text-white text-sm text-right py-2 mx-4 hover:underline cursor-pointer" 
+              onClick={()=>navigate('/forgot')}>Forget Password ?</p>
+            </div>
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-700">
                 Don't have an account?{" "}
