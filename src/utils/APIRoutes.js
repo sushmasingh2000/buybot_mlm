@@ -1,5 +1,5 @@
-// export const domain = 'http://192.168.18.214:9033';
-export const domain = 'https://buybot.club';
+export const domain = 'http://192.168.18.214:9033';
+// export const domain = 'https://buybot.club';
 export const frontend = 'https://buybot.club';
 export const dollar = "$"
 
