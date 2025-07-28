@@ -93,7 +93,19 @@ const Dashboard = () => {
             <Row label="Email" value={user_profile?.Email} highlight />
             <Row label="Mobile No" value={user_profile?.Mobile_No} highlight color="text-green-400" />
             <Row label="Activation Date" value={user_profile?.TOPDATE} highlight color="text-green-400" />
-            <Row label="TopUp Amount" value={`${"$"} ${user_profile?.Topup_amt}`} highlight color="text-green-400" />
+            <Row
+              label="TopUp Amount"
+              value={
+                user_profile?.or_m_topup_type === "Real Topup"
+                  ? `$ ${user_profile?.Topup_amt}`
+                  : user_profile?.or_m_topup_type === "Special Topup" ?
+                    "Special Topup"
+                    : user_profile?.or_m_topup_type === "Not Topup" &&
+                    " ---"
+              }
+              highlight
+              color="text-green-400"
+            />
 
           </div>
         </div>
@@ -112,10 +124,10 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <Account />
-        {/* <CappingPieChart/> */}
-      </div>
+          {/* <CappingPieChart/> */}
+        </div>
       </main>
     </div>
   );

@@ -23,7 +23,7 @@ const TopUp = () => {
         // pack_id: fk.values.topup_type === "special" ? 11000 : 1100, // ✅ set pack_id based on selection
         pack_id: 1,
         user_id: fk.values.user_id,
-        topup_type: fk.values.topup_type
+        topup_type: fk.values.topup_type==="RealTopup"? 2 : 3
       };
       TopUpFn(reqbody);
     },
